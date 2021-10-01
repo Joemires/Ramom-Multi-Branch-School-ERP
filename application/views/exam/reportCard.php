@@ -68,12 +68,19 @@ function convertNumberToWord($num = false)
 if (count($student_array)) {
 	foreach ($student_array as $sc => $studentID) {
 		$result = $this->exam_model->getStudentReportCard($studentID, $examID, $sessionID);
+		
 		$student = $result['student'];
 		$getMarksList = $result['exam'];
 
 		$getExam = $this->db->where(array('id' => $examID))->get('exam')->row_array();
 		$getSchool = $this->db->where(array('id' => $getExam['branch_id']))->get('branch')->row_array();
 		$schoolYear = get_type_name_by_id('schoolyear', $sessionID, 'school_year');
+		print "<pre>";
+	    $terms = $this->db->where(array('branch_id' => $getExam['branch_id'], 'session_id' => $sessionID))->get('exam_term')->result_array();
+	    $key = array_search($getExam['term_id'], array_column($terms, 'id'));
+	    print_r($terms[$key]);
+	    print "</pre>";
+        exit;
 		?>
 		
 		<!DOCTYPE html>
