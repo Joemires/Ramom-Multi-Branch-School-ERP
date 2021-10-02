@@ -560,10 +560,13 @@ class Exam extends Admin_Controller
             $this->data['print_date'] = $this->input->post('print_date');
             $this->data['examID'] = $this->input->post('exam_id');
             $this->data['sessionID'] = $this->input->post('session_id');
-            // http_response_code(200);
-            // print_r($this->data);
-            // exit;
+            
+            $getExam = $this->db->where(array('id' => $this->data['examID']))->get('exam')->row_array();
+            $terms = $this->db->where(array('branch_id' => $getExam['branch_id'], 'session_id' => $this->data['sessionID']))->get('exam_term')->result_array();
+
             echo $this->load->view('exam/reportCard', $this->data, true);
+
+            if(end($terms)['id'] == $getExam['term_id']) echo $this->load->view('exam/reportCard', $this->data, true);
         }
     }
 
