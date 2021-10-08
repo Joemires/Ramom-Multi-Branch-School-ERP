@@ -432,6 +432,95 @@ class Exam extends Admin_Controller
         }
     }
 
+    /* exam extra currculum mark information are prepared and stored in the database here */
+    public function extra_scoring_entry()
+    {
+        if (!get_permission('exam_mark', 'is_add')) {
+            access_denied();
+        }
+        
+        $branchID = $this->application_model->get_branch_id();
+        $classID = $this->input->post('class_id');
+        $sectionID = $this->input->post('section_id');
+        $studentID = $this->input->post('student_id');
+        $examID = $this->input->post('exam_id');
+        
+        $this->data['branch_id'] = $branchID;
+        $this->data['class_id'] = $classID;
+        $this->data['section_id'] = $sectionID;
+        $this->data['student_id'] = $studentID;
+        $this->data['exam_id'] = $examID;
+
+        if($studentID) {
+            $this->load->model('Student_model', 'student_model');
+        }
+        
+        if (isset($_POST['search'])) {
+            $activities = $this->exam_model->getExtraCurriculumMarkAndStudent($branchID, $classID, $sectionID, $examID, $studentID)['scores'] ?? load_default_curriculum_marks();
+
+            if(!is_array($activities)) $activities = json_decode($activities, true);
+            
+            $this->data['extra_scores'] = $activities;
+        }
+
+        $this->data['sub_page'] = 'exam/extra_scoring';
+        $this->data['main_menu'] = 'mark';
+        $this->data['title'] = "Extra Curriculum Entries";
+        $this->load->view('layout/index', $this->data);
+    }
+
+    public function extra_scoring_save()
+    {
+        if ($_POST) {
+
+            if (!get_permission('exam_mark', 'is_add')) {
+                ajax_access_denied();
+            }
+
+            $inputMarks = $this->input->post('extra_scores');
+            foreach ($inputMarks as $key => $value) {
+                foreach ($value as $i => $score) {
+                    $this->form_validation->set_rules('extra_scores[' . $key . '][' . $i . ']', 'extra_scores', 'trim|required|numeric');
+                }
+            }
+
+            if($this->form_validation->run() !== false) {
+                $branchID = $this->application_model->get_branch_id();
+                $classID = $this->input->post('class_id');
+                $sectionID = $this->input->post('section_id');
+                $studentID = $this->input->post('student_id');
+                $examID = $this->input->post('exam_id');
+
+                $arrayMarks = array(
+                    'exam_id' => $examID,
+                    'student_id' => $studentID,
+                );
+                
+                $query = $this->db->get_where('exam_extra_curriculum_scoring', $arrayMarks);
+
+                if ($query->num_rows() > 0) {
+                    $this->db->where('user_id', $studentID);
+                    $this->db->where('exam_id', $examID);
+                    $this->db->update('exam_extra_curriculum_scoring', array('scoring_json' => json_encode($inputMarks)));
+                } else {
+                    $this->db->insert('exam_extra_curriculum_scoring', [
+                        'student_id' => $studentID,
+                        'exam_id' => $examID,
+                        'scoring_json' => json_encode($inputMarks)
+                    ]);
+                }
+
+
+                $message = translate('information_has_been_saved_successfully');
+                $array = array('status' => 'success', 'message' => $message);
+            } else {
+                $error = $this->form_validation->error_array();
+                $array = array('status' => 'fail', 'error' => $error);
+            }
+            echo json_encode($array);
+        }
+    }
+
     /* exam grade form validation rules */
     protected function grade_validation()
     {

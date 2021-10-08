@@ -458,3 +458,49 @@ function delete_dir($dirPath)
     }
     return false;
 }
+
+
+function load_default_curriculum_marks() {
+    return [
+        'social_behaviour' => [
+            'punctuality' => '',
+            'attendance' => '',
+            'attentiveness' => '',
+            'creativity' => '',
+            'organizatiobal_ability' => '',
+            'carrying_out_assignments' => '',
+            'politeness' => '',
+            'neatness' => '',
+            'honesty' => ''
+        ],
+        'academic_skills' => [
+            'handwriting' => '',
+            'reading' => '',
+            'handling_of_lab_tools' => '',
+            'public_speaking' => ''
+        ],
+        
+        'entrepreneurship' => [
+            'first_assessment' => '',
+            'second_assessment' => '',
+            'examination' => ''
+        ],
+        'art_skills' => [
+            'drawing' => '',
+            'painting' => '',
+            'dancing' => '',
+            'singing' => '',
+            'playing_local_musical_instruments' => '',
+            'conducting_BandslashChoir' => ''
+        ],
+        'game_slash_sport_skills' => [
+            'skipping' => '',
+            'athletics' => '',
+            'football' => '',
+            'volleyball' => '',
+            'basketball' => '',
+            'table_tennis' => '',
+            'scrabble' => ''
+        ]
+    ];
+}

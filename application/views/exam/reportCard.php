@@ -222,6 +222,10 @@
             $getSchool = $this->db->where(array('id' => $getExam['branch_id']))->get('branch')->row_array();
             $schoolYear = get_type_name_by_id('schoolyear', $sessionID, 'school_year');
 
+            $extra_c_marks = $this->db->where(array('exam_id' => $examID, 'student_id' => $studentID))->get('exam_extra_curriculum_scoring')->row_array()['scores'] ?? load_default_curriculum_marks();
+
+            if(!is_array($extra_c_marks)) $extra_c_marks = json_decode($extra_c_marks, true);
+
             // print_r($getTerm);
             // exit;
             ?>
@@ -508,233 +512,41 @@
                                         <tr>
                                             <th colspan="4">F9 (0 - 39) Fail</th>
                                         </tr>
-                                        <tr>
-                                            <th colspan="15" class="caption">
-                                                social behaviour
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">1. Punctuality</th>
-                                            <td>10</td>
-                                            <td></td>
-                                            <td rowspan="9" colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">2. Attendance</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">3. Attentiveness</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">4. Creativty</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">
-                                                5. Organizational ability
-                                            </th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">
-                                                6. carrying out of assignments
-                                            </th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">7. politeness</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">8. neatness</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">9. honesty</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7" class="caption">
-                                                Total
-                                            </th>
-                                            <td class="bold">100</td>
-                                            <td></td>
-                                            <td colspan="5"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="15" class="caption">
-                                                academic skills
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">1. handwritng</th>
-                                            <td>30</td>
-                                            <td></td>
-                                            <td rowspan="4" colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">2. reading</th>
-                                            <td>30</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">
-                                                3. handling of lab tools
-                                            </th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">4. public speaking</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7" class="caption">
-                                                Total
-                                            </th>
-                                            <td class="bold">100</td>
-                                            <td></td>
-                                            <td colspan="5"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="15" class="caption">
-                                                entrepreneurship
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">1. first assessment</th>
-                                            <td>20</td>
-                                            <td></td>
-                                            <td rowspan="3" colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">
-                                                2. second assessment
-                                            </th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">3. examination</th>
-                                            <td>60</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7" class="caption">
-                                                Total
-                                            </th>
-                                            <td class="bold">100</td>
-                                            <td></td>
-                                            <td colspan="5"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="15" class="caption">
-                                                art skills
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">1. drawing</th>
-                                            <td>20</td>
-                                            <td></td>
-                                            <td rowspan="6" colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">2. painting</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">3. dancing</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">4. singing</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">
-                                                5. playing local musical instruments
-                                            </th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">
-                                                6. conducting band/choir
-                                            </th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7" class="caption">
-                                                Total
-                                            </th>
-                                            <td class="bold">100</td>
-                                            <td></td>
-                                            <td colspan="5"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="15" class="caption">
-                                                game/sport skills
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">1. skipping</th>
-                                            <td>10</td>
-                                            <td></td>
-                                            <td rowspan="7" colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">2. athletics</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">3. football</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">4. volleyball</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">5. basketball</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">6. table tennis</th>
-                                            <td>10</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7">7. scrabble</th>
-                                            <td>20</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="7" class="caption">
-                                                Total
-                                            </th>
-                                            <td class="bold">100</td>
-                                            <td></td>
-                                            <td colspan="5"></td>
-                                        </tr>
+                                        <?php
+                                            foreach ($extra_c_marks as $title => $extra_c_mark) { 
+                                                $paginator = 0;
+                                                $score_sum = 0;
+                                                ?>
+                                                <tr>
+                                                    <th colspan="15" class="caption">
+                                                        <?= ucwords(str_replace('slash', '/', str_replace('_', ' ', $title))) ?>
+                                                    </th>
+                                                </tr>
+                                                <?php
+                                                foreach ($extra_c_mark as $label => $score) { 
+                                                    $paginator++;
+                                                    $score_sum += $score;
+                                                    ?>
+                                                    <tr>
+                                                        <th colspan="7"><?= $paginator; ?>. <?= ucwords(str_replace('slash', '/', str_replace('_', ' ', $label))) ?></th>
+                                                        <td>10</td>
+                                                        <td><?= (float) $score ?></td>
+                                                        <td rowspan="9" colspan="4"></td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                if(end($extra_c_mark)) { ?>
+                                                    <tr>
+                                                        <th colspan="7" class="caption">
+                                                            Total
+                                                        </th>
+                                                        <td class="bold">100</td>
+                                                        <td> <?= $score_sum / count($extra_c_mark) ?> </td>
+                                                        <td colspan="5"></td>
+                                                    </tr>
+                                                <?php }
+                                            }
+                                        ?>
                                     </table>
                                 </div>
                             </div>

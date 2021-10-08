@@ -54,7 +54,7 @@ class Dashboard extends Admin_Controller
             }
             $this->data['school_id'] = $schoolID;
             $this->data['student_by_class'] = $this->dashboard_model->getStudentByClass($schoolID);
-            $this->data['fees_summary'] = $this->dashboard_model->annualFeessummaryCharts($schoolID);
+            // $this->data['fees_summary'] = $this->dashboard_model->annualFeessummaryCharts($schoolID);
             $this->data['income_vs_expense'] = $this->dashboard_model->getIncomeVsExpense($schoolID);
             $this->data['weekend_attendance'] = $this->dashboard_model->getWeekendAttendance($schoolID);
             $this->data['get_monthly_admission'] = $this->dashboard_model->getMonthlyAdmission($schoolID);
