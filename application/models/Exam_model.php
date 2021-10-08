@@ -142,6 +142,7 @@ class Exam_model extends CI_Model
     public function getMarkAndStudent($branchID, $classID, $sectionID, $examID, $subjectID)
     {
         $this->db->select('en.*,st.first_name,st.last_name,st.register_no,st.category_id,m.mark as get_mark,IFNULL(m.absent, 0) as get_abs,subject.name as subject_name');
+
         $this->db->from('enroll as en');
         $this->db->join('student as st', 'st.id = en.student_id', 'inner');
         $this->db->join('mark as m', 'm.student_id = en.student_id and m.class_id = en.class_id and m.section_id = en.section_id and m.exam_id = ' . $this->db->escape($examID) . ' and m.subject_id = ' . $this->db->escape($subjectID), 'left');
@@ -176,6 +177,23 @@ class Exam_model extends CI_Model
         $result['exam'] = $this->db->get()->result_array();
 
         return $result;
+    }
+
+    public function getExtraCurriculumMarkAndStudent($branchID, $classID, $sectionID, $examID, $studentID)
+    {
+        $this->db->select('en.*, st.first_name, st.last_name, st.register_no, st.category_id, ec_s.scoring_json as scores');
+
+        $this->db->from('enroll as en');
+        $this->db->join('student as st', 'st.id = en.student_id', 'inner');
+        $this->db->join('exam_extra_curriculum_scoring as ec_s', 'ec_s.exam_id = ' . $examID, 'left');
+        $this->db->where('en.class_id', $classID);
+        $this->db->where('ec_s.exam_id', $examID);
+        $this->db->where('ec_s.student_id', $studentID);
+        $this->db->where('en.section_id', $sectionID);
+        $this->db->where('en.branch_id', $branchID);
+        $this->db->where('en.session_id', get_session_id());
+        $this->db->order_by('en.roll', 'ASC');
+        return $this->db->get()->row_array();
     }
 
 }

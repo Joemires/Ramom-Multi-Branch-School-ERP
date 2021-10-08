@@ -199,7 +199,7 @@
 		});
 
         $('form.printIn').on('submit', function(e){
-            e.preventDefault();
+            // e.preventDefault();
             var btn = $(this).find('[type="submit"]');
             $.ajax({
                 url: $(this).attr('action'),

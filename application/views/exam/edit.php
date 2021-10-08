@@ -66,6 +66,18 @@
 								<span class="error"></span>
 							</div>
 						</div>
+						<div class="form-group" style="display: none">
+							<label class="col-md-3 control-label">Extra mark Distribution</label>
+							<div class="col-md-6">
+								<?php
+									$tags = json_decode($exam['extra_activities'], true);
+									$selected = array_keys($tags);
+									echo form_dropdown("extra_mark_distribution[]", $tags, $selected, "class='form-control' multiple id='extra_mark_distribution'
+									data-plugin-selectTwo  data-tags='true' data-width='100%'");
+								?>
+								<span class="error"></span>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?=translate('remarks')?></label>
 							<div class="col-md-6 mb-sm">

@@ -895,4 +895,29 @@ class Student extends Admin_Controller
         }
         echo json_encode(array('status' => $status, 'message' => $message));
     }
+
+
+    // get students list based on class section
+    public function getByClassSection()
+    {
+        $html = '';
+        $branchID = $this->input->post('branchID');
+        $classID = $this->input->post('classID');
+        $sectionID = $this->input->post('sectionID');
+        if (!empty($classID)) {
+            $query = $this->student_model->getStudentList($classID, $sectionID, $branchID);
+            if ($query->num_rows() > 0) {
+                $html .= '<option value="">' . translate('select') . '</option>';
+                $subjects = $query->result_array();
+                foreach ($subjects as $row) {
+                    $html .= '<option value="' . $row['student_id'] . '">' . ucwords(strtolower($row['fullname'])) . '</option>';
+                }
+            } else {
+                $html .= '<option value="">' . translate('no_information_available') . '</option>';
+            }
+        } else {
+            $html .= '<option value="">' . translate('select') . '</option>';
+        }
+        echo $html;
+    }
 }

@@ -772,6 +772,12 @@
                                             <span><?=translate('mark_entries')?></span>
                                         </a>
                                     </li>
+                                    <?php } if(get_permission('marks_register', 'is_view')) { ?>
+                                    <li class="<?php if ($sub_page == 'exam/extra_scoring_entry') echo 'nav-active';?>">
+                                        <a href="<?=base_url('exam/extra_scoring_entry')?>">
+                                            <span>Extra Marks</span>
+                                        </a>
+                                    </li>
                                     <?php } if(get_permission('exam_grade', 'is_view')) { ?>
                                     <li class="<?php if ($sub_page == 'exam/grade') echo 'nav-active';?>">
                                         <a href="<?=base_url('exam/grade')?>">
