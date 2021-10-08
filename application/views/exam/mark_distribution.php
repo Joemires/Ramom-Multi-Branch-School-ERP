@@ -1,3 +1,72 @@
+<link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+<script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+
+<style>
+	html.dark .bootstrap-tagsinput {
+		background-color: #fff;
+		border: 1px solid #ccc;
+		line-height: 28px;
+	}
+	.bootstrap-tagsinput .tag {
+		background-color: #383838;
+		font-size: 14px
+	}
+	.bootstrap-tagsinput input:not(:focus) {
+		width: 10px
+	}
+.switch {
+  display: inline-block;
+  height: 28px;
+  position: relative;
+  width: 60px;
+  margin: 0;
+}
+
+.switch input {
+  display:none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 20px;
+  left: 6px;
+  position: absolute;
+  transition: .4s;
+  width: 20px;
+}
+
+input:checked + .slider {
+  background-color: #66bb6a;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+
 <div class="row">
 <?php if (get_permission('mark_distribution', 'is_add')): ?>
 	<div class="col-md-5">
@@ -23,6 +92,22 @@
 						<input type="text" class="form-control" name="name" value="<?=set_value('name')?>" />
 						<span class="error"><?=form_error('name')?></span>
 					</div>
+					<!-- <div class="form-group mb-md" style="display: none; align-items: center; flex-wrap: wrap">
+						<label class="control-label">Extra Activity Mark</label>
+						<label class="switch" for="checkbox" style="margin-left: 10px">
+							<input type="checkbox" id="checkbox" name="type" value="extra" onchange="$('.mark-tags').toggle()">
+							<div class="slider round"></div>
+						</label>
+						<span class="small text-muted" style="width: 100%">Check if this mark distribution is extra curreculum activity</span>
+					</div>
+					
+					<div class="form-group mark-tags" style="display: none">
+						<label class="control-label">Scoring Sections <span class="required">*</span></label>
+						<div class="bs-example">
+							<input type="text" name="extra-tags" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput">
+						</div>
+					</div> -->
+
 				</div>
 				<div class="panel-footer">
 					<div class="row">
@@ -131,3 +216,9 @@
 	</section>
 </div>
 <?php endif; ?>
+
+<script>
+	$(document).ready( () => {
+		$("#inputTag").tagsinput('items');
+	})
+</script>

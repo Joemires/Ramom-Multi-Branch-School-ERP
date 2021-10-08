@@ -141,7 +141,8 @@ class Exam_model extends CI_Model
 
     public function getMarkAndStudent($branchID, $classID, $sectionID, $examID, $subjectID)
     {
-        $this->db->select('en.*,st.first_name,st.last_name,st.register_no,st.category_id,m.mark as get_mark,IFNULL(m.absent, 0) as get_abs,subject.name as subject_name');
+        $this->db->select('en.*,st.first_name,st.last_name,st.register_no,st.category_id,m.mark as get_mark,IFNULL(m.absent, 0) as get_abs,subject.name as subject_name, m.extra_activities as get_extra_marks');
+
         $this->db->from('enroll as en');
         $this->db->join('student as st', 'st.id = en.student_id', 'inner');
         $this->db->join('mark as m', 'm.student_id = en.student_id and m.class_id = en.class_id and m.section_id = en.section_id and m.exam_id = ' . $this->db->escape($examID) . ' and m.subject_id = ' . $this->db->escape($subjectID), 'left');

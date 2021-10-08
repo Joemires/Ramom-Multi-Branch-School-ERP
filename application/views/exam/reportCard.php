@@ -310,7 +310,7 @@
                                             <th colspan="4" rowspan="10" class="vertical">
                                                 <span> grade </span>
                                             </th>
-                                            <th colspan="6" rowspan="10" style="min-width: 100px" class="vertical">
+                                            <th colspan="6" rowspan="10" style="min-width: 60px" class="vertical">
                                                 <span> Remark </span>
                                             </th>
                                         </tr>
@@ -354,7 +354,7 @@
                                         foreach ($getMarksList as $i => $row) {
                                         ?>
                                             <tr>
-                                                <th colspan="4" class="text-uppercase <?= $i % 2 == 1 ? 'strip_col' : ''; ?>">
+                                                <th colspan="4" class="text-uppercase <?= $i % 2 == 0 ? 'strip_col' : ''; ?>">
                                                     <?= $row['subject_name'] ?>
                                                 </th>
                                                 <td colspan="4"></td>

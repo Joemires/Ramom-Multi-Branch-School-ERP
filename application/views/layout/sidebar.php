@@ -773,6 +773,12 @@
                                         </a>
                                     </li>
                                     <?php } if(get_permission('exam_grade', 'is_view')) { ?>
+                                    <li class="<?php if ($sub_page == 'exam/extra_scoring') echo 'nav-active';?>">
+                                        <a href="<?=base_url('exam/extra_mark')?>">
+                                            <span>Extra Marks</span>
+                                        </a>
+                                    </li>
+                                    <?php } if(get_permission('exam_grade', 'is_view')) { ?>
                                     <li class="<?php if ($sub_page == 'exam/grade') echo 'nav-active';?>">
                                         <a href="<?=base_url('exam/grade')?>">
                                             <span><?=translate('grades_range')?></span>
