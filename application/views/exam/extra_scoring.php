@@ -93,7 +93,7 @@ $widget = (is_superadmin_loggedin() ? 2 : 3);
 
 		<?php if (isset($extra_scores)) : ?>
 			<section class="panel appear-animation" data-appear-animation="<?php echo $global_config['animations']; ?>" data-appear-animation-delay="100">
-				<?php echo form_open('exam/extra_scoring_save', array('class' => ''));
+				<?php echo form_open('exam/extra_scoring_save', array('class' => 'frm-submit-msg'));
 				$data = array(
 					'class_id' => $class_id,
 					'section_id' => $section_id,
@@ -119,7 +119,9 @@ $widget = (is_superadmin_loggedin() ? 2 : 3);
                                         foreach($extra_score as $label => $score) { ?>
                                             <div class="form-group col-lg-4">
                                                 <label for=""> <?= ucwords(str_replace('slash', '/', str_replace('_', ' ', $label))) ?> </label>
-                                                <input type="number" class="form-control" name="extra_scores[<?= $title ?>][<?= $label ?>]" value="<?= $score ?>" placeholder="0">
+                                                <input type="number" class="form-control" name="extra_scores[<?= $title ?>][<?= $label ?>][score]" value="<?= $score['score'] ?>" placeholder="0" max="<?= $score['max'] ?>">
+                                                
+                                                <input type="hidden" name="extra_scores[<?= $title ?>][<?= $label ?>][max]" value="<?= $score['max'] ?>">
                                             </div>
                                         <?php }
                                         ?>

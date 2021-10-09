@@ -476,15 +476,18 @@ class Exam extends Admin_Controller
             if (!get_permission('exam_mark', 'is_add')) {
                 ajax_access_denied();
             }
-
+            
             $inputMarks = $this->input->post('extra_scores');
             foreach ($inputMarks as $key => $value) {
                 foreach ($value as $i => $score) {
-                    $this->form_validation->set_rules('extra_scores[' . $key . '][' . $i . ']', 'extra_scores', 'trim|required|numeric');
+                    $this->form_validation->set_rules('extra_scores[' . $key . '][' . $i . '][score]', 'extra_scores', 'trim|required|numeric');
                 }
             }
 
             if($this->form_validation->run() !== false) {
+                // echo "<pre>";
+                // print_r($inputMarks);
+                // exit;
                 $branchID = $this->application_model->get_branch_id();
                 $classID = $this->input->post('class_id');
                 $sectionID = $this->input->post('section_id');
@@ -499,17 +502,19 @@ class Exam extends Admin_Controller
                 $query = $this->db->get_where('exam_extra_curriculum_scoring', $arrayMarks);
 
                 if ($query->num_rows() > 0) {
-                    $this->db->where('user_id', $studentID);
+                    $this->db->where('student_id', $studentID);
                     $this->db->where('exam_id', $examID);
-                    $this->db->update('exam_extra_curriculum_scoring', array('scoring_json' => json_encode($inputMarks)));
+                    $this->db->update('exam_extra_curriculum_scoring', [
+                        'scoring_json' => json_encode($inputMarks)
+                    ]);
                 } else {
+                    
                     $this->db->insert('exam_extra_curriculum_scoring', [
                         'student_id' => $studentID,
                         'exam_id' => $examID,
                         'scoring_json' => json_encode($inputMarks)
                     ]);
                 }
-
 
                 $message = translate('information_has_been_saved_successfully');
                 $array = array('status' => 'success', 'message' => $message);

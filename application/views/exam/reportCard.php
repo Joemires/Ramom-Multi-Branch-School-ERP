@@ -222,7 +222,7 @@
             $getSchool = $this->db->where(array('id' => $getExam['branch_id']))->get('branch')->row_array();
             $schoolYear = get_type_name_by_id('schoolyear', $sessionID, 'school_year');
 
-            $extra_c_marks = $this->db->where(array('exam_id' => $examID, 'student_id' => $studentID))->get('exam_extra_curriculum_scoring')->row_array()['scores'] ?? load_default_curriculum_marks();
+            $extra_c_marks = $this->db->where(array('exam_id' => $examID, 'student_id' => $studentID))->get('exam_extra_curriculum_scoring')->row_array()['scoring_json'] ?? load_default_curriculum_marks();
 
             if(!is_array($extra_c_marks)) $extra_c_marks = json_decode($extra_c_marks, true);
 
@@ -525,24 +525,28 @@
                                                 <?php
                                                 foreach ($extra_c_mark as $label => $score) { 
                                                     $paginator++;
-                                                    $score_sum += $score;
+                                                    $score_sum += $score['score'];
                                                     ?>
                                                     <tr>
                                                         <th colspan="7"><?= $paginator; ?>. <?= ucwords(str_replace('slash', '/', str_replace('_', ' ', $label))) ?></th>
-                                                        <td>10</td>
-                                                        <td><?= (float) $score ?></td>
-                                                        <td rowspan="9" colspan="4"></td>
+                                                        <td><?= (float) $score['max'] ?></td>
+                                                        <td><?= (float) $score['score'] ?></td>
+                                                        <?php 
+                                                        if($paginator == 1) { ?>
+                                                        <td rowspan="<?= count($extra_c_mark) ?>" colspan="4"></td>
+                                                        <?php } ?>
                                                     </tr>
                                                 <?php
                                                 }
-                                                if(end($extra_c_mark)) { ?>
+                                                if($paginator == count($extra_c_mark)) { ?>
                                                     <tr>
                                                         <th colspan="7" class="caption">
                                                             Total
                                                         </th>
                                                         <td class="bold">100</td>
-                                                        <td> <?= $score_sum / count($extra_c_mark) ?> </td>
+                                                        <td> <?= $score_sum ?> </td>
                                                         <td colspan="5"></td>
+                                                        
                                                     </tr>
                                                 <?php }
                                             }

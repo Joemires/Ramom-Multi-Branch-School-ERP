@@ -463,44 +463,131 @@ function delete_dir($dirPath)
 function load_default_curriculum_marks() {
     return [
         'social_behaviour' => [
-            'punctuality' => '',
-            'attendance' => '',
-            'attentiveness' => '',
-            'creativity' => '',
-            'organizatiobal_ability' => '',
-            'carrying_out_assignments' => '',
-            'politeness' => '',
-            'neatness' => '',
-            'honesty' => ''
+            'punctuality' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'attendance' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'attentiveness' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'creativity' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'organizatiobal_ability' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'carrying_out_assignments' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'politeness' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'neatness' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'honesty' => [
+                'score' => '',
+                'max' => 10
+            ]
         ],
         'academic_skills' => [
-            'handwriting' => '',
-            'reading' => '',
-            'handling_of_lab_tools' => '',
-            'public_speaking' => ''
+            'handwriting' => [
+                'score' => '',
+                'max' => 30
+            ],
+            'reading' => [
+                'score' => '',
+                'max' => 30
+            ],
+            'handling_of_lab_tools' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'public_speaking' => [
+                'score' => '',
+                'max' => 20
+            ]
         ],
         
         'entrepreneurship' => [
-            'first_assessment' => '',
-            'second_assessment' => '',
-            'examination' => ''
+            'first_assessment' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'second_assessment' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'examination' => [
+                'score' => '',
+                'max' => 60
+            ]
         ],
         'art_skills' => [
-            'drawing' => '',
-            'painting' => '',
-            'dancing' => '',
-            'singing' => '',
-            'playing_local_musical_instruments' => '',
-            'conducting_BandslashChoir' => ''
+            'drawing' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'painting' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'dancing' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'singing' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'playing_local_musical_instruments' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'conducting_BandslashChoir' => [
+                'score' => '',
+                'max' => 10
+            ]
         ],
         'game_slash_sport_skills' => [
-            'skipping' => '',
-            'athletics' => '',
-            'football' => '',
-            'volleyball' => '',
-            'basketball' => '',
-            'table_tennis' => '',
-            'scrabble' => ''
+            'skipping' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'athletics' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'football' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'volleyball' => [
+                'score' => '',
+                'max' => 20
+            ],
+            'basketball' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'table_tennis' => [
+                'score' => '',
+                'max' => 10
+            ],
+            'scrabble' => [
+                'score' => '',
+                'max' => 20
+            ]
         ]
     ];
 }

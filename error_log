@@ -67,3 +67,5 @@ Stack trace:
 #0 /home/linaayhw/public_html/vendor/phpsandbox/cli/psb(20): require_once()
 #1 {main}
   thrown in /home/linaayhw/public_html/vendor/phpsandbox/cli/bootstrap/app.php on line 14
+[09-Oct-2021 05:08:49 America/New_York] PHP Fatal error:  Cannot use empty array elements in arrays in /home/linaayhw/public_html/application/helpers/general_helper.php on line 538
+[09-Oct-2021 05:09:21 America/New_York] PHP Fatal error:  Cannot use empty array elements in arrays in /home/linaayhw/public_html/application/helpers/general_helper.php on line 538
